@@ -2,8 +2,8 @@ name: main.py
 
 on:
   schedule:
-    # Define a cron para rodar todos os dias úteis às 9h00
-    - cron: '0 9 * * 1-5'
+    # Define a cron para rodar de 1 em 1 hora
+    - cron: '0 * * * *'
 
 jobs:
   run_script:
@@ -24,4 +24,5 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
     - name: Run script
-      run: python script.py
+      run: |
+        for i in {1..3}; do python main.py && break || sleep 60; done
